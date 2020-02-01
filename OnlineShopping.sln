@@ -3,9 +3,86 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{1459E4DE-E38A-4845-85CA-B5B39EF27A86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{9C4FCAC5-C48D-4FD3-A427-583F11F0E7F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UDB", "UDB", "{2F923784-2AFA-4B3B-A2D6-43C1D2C5B37D}"
+	ProjectSection(SolutionItems) = preProject
+		CreateOnlineShoppingDatabase.sql = CreateOnlineShoppingDatabase.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UDT", "UDT", "{DDEE388A-F184-42B1-A7DE-88B88D91BC30}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "USP", "USP", "{B736211C-2A0F-4972-A9BF-C98718339697}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Category", "Category", "{8756BB9E-FC5F-4737-AE71-37DD9D14AF91}"
+	ProjectSection(SolutionItems) = preProject
+		UDT_Category_Delete.sql = UDT_Category_Delete.sql
+		UDT_Category_Edit.sql = UDT_Category_Edit.sql
+		UDT_Category_Insert.sql = UDT_Category_Insert.sql
+		UDT_Category_Select.sql = UDT_Category_Select.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "Product", "{308AB4A7-70C9-4529-9980-DE633F693F0F}"
+	ProjectSection(SolutionItems) = preProject
+		UDT_Product_Delete.sql = UDT_Product_Delete.sql
+		UDT_Product_Edit.sql = UDT_Product_Edit.sql
+		UDT_Product_Insert.sql = UDT_Product_Insert.sql
+		UDT_Product_Select.sql = UDT_Product_Select.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CreatTables", "CreatTables", "{517F83BF-5B8B-417A-8E0A-19955EEF4690}"
+	ProjectSection(SolutionItems) = preProject
+		USP_Category_CreateTable.sql = USP_Category_CreateTable.sql
+		USP_Product_CreateTable.sql = USP_Product_CreateTable.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CRUD", "CRUD", "{5F28B9D1-FE67-46B5-8E99-F8307A582FC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Category", "Category", "{DA27DF53-EE0B-4857-BD9D-44EB50AB2948}"
+	ProjectSection(SolutionItems) = preProject
+		USP_Category_Delete.sql = USP_Category_Delete.sql
+		USP_Category_Edit.sql = USP_Category_Edit.sql
+		USP_Category_Insert.sql = USP_Category_Insert.sql
+		USP_Category_Select.sql = USP_Category_Select.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "Product", "{4AEA0B97-29DD-4597-A809-1D47379A06BB}"
+	ProjectSection(SolutionItems) = preProject
+		USP_Product_Delete.sql = USP_Product_Delete.sql
+		USP_Product_Edit.sql = USP_Product_Edit.sql
+		USP_Product_Insert.sql = USP_Product_Insert.sql
+		USP_Product_Select.sql = USP_Product_Select.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShopping", "OnlineShopping\OnlineShopping.csproj", "{5A6CEB21-C48A-4ECA-81FF-76FD2FA2985C}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A6CEB21-C48A-4ECA-81FF-76FD2FA2985C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A6CEB21-C48A-4ECA-81FF-76FD2FA2985C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A6CEB21-C48A-4ECA-81FF-76FD2FA2985C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A6CEB21-C48A-4ECA-81FF-76FD2FA2985C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9C4FCAC5-C48D-4FD3-A427-583F11F0E7F1} = {1459E4DE-E38A-4845-85CA-B5B39EF27A86}
+		{2F923784-2AFA-4B3B-A2D6-43C1D2C5B37D} = {9C4FCAC5-C48D-4FD3-A427-583F11F0E7F1}
+		{DDEE388A-F184-42B1-A7DE-88B88D91BC30} = {9C4FCAC5-C48D-4FD3-A427-583F11F0E7F1}
+		{B736211C-2A0F-4972-A9BF-C98718339697} = {9C4FCAC5-C48D-4FD3-A427-583F11F0E7F1}
+		{8756BB9E-FC5F-4737-AE71-37DD9D14AF91} = {DDEE388A-F184-42B1-A7DE-88B88D91BC30}
+		{308AB4A7-70C9-4529-9980-DE633F693F0F} = {DDEE388A-F184-42B1-A7DE-88B88D91BC30}
+		{517F83BF-5B8B-417A-8E0A-19955EEF4690} = {B736211C-2A0F-4972-A9BF-C98718339697}
+		{5F28B9D1-FE67-46B5-8E99-F8307A582FC6} = {B736211C-2A0F-4972-A9BF-C98718339697}
+		{DA27DF53-EE0B-4857-BD9D-44EB50AB2948} = {5F28B9D1-FE67-46B5-8E99-F8307A582FC6}
+		{4AEA0B97-29DD-4597-A809-1D47379A06BB} = {5F28B9D1-FE67-46B5-8E99-F8307A582FC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {79814F34-6C9E-4067-81D7-F5C52EEC8C67}
