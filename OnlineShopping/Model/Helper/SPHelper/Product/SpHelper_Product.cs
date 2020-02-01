@@ -11,6 +11,7 @@ namespace OnlineShopping.Model.Helper.SPHelper.Product
     {
         #region [- Const -]
         public const string USP_Product_Select = "dbo.USP_Product_Select @ProductInfo";
+        public const string Usp_Product_List = "Exec dbo.USP_Product_List";
         public const string USP_Product_Insert = "dbo.USP_Product_Insert @ProductInfo";
         public const string USP_Product_Edit = "dbo.USP_Product_Edit @ProductInfo";
         public const string USP_Product_Delete = "dbo.USP_Product_Delete @ProductInfo";

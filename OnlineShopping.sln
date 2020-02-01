@@ -45,6 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Category", "Category", "{DA
 		USP_Category_Delete.sql = USP_Category_Delete.sql
 		USP_Category_Edit.sql = USP_Category_Edit.sql
 		USP_Category_Insert.sql = USP_Category_Insert.sql
+		USP_Category_List.sql = USP_Category_List.sql
 		USP_Category_Select.sql = USP_Category_Select.sql
 	EndProjectSection
 EndProject
@@ -53,6 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "Product", "{4AEA
 		USP_Product_Delete.sql = USP_Product_Delete.sql
 		USP_Product_Edit.sql = USP_Product_Edit.sql
 		USP_Product_Insert.sql = USP_Product_Insert.sql
+		USP_Product_List.sql = USP_Product_List.sql
 		USP_Product_Select.sql = USP_Product_Select.sql
 	EndProjectSection
 EndProject

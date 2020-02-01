@@ -24,7 +24,7 @@ namespace OnlineShopping.Model.DomainModel.POCO
                 try
                 {
                     list_Category = context.Database.SqlQuery<Helper.SPHelper.Category.SpHelper_Category_Select>
-                        (Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Select).ToList();
+                        (Model.Helper.SPHelper.Category.SpHelper_Category.Usp_Category_List).ToList();
                 }
                 catch (Exception)
                 {

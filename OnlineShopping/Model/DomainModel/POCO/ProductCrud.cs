@@ -24,7 +24,7 @@ namespace OnlineShopping.Model.DomainModel.POCO
                 try
                 {
                     list_Product = context.Database.SqlQuery<Helper.SPHelper.Product.SpHelper_Product_Select>
-                        (Model.Helper.SPHelper.Product.SpHelper_Product.USP_Product_Select).ToList();
+                        (Model.Helper.SPHelper.Product.SpHelper_Product.Usp_Product_List).ToList();
                 }
                 catch (Exception)
                 {

@@ -12,6 +12,7 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
 
         #region [- Const -]
         public const string USP_Category_Select = "dbo.USP_Category_Select @CategoryInfo";
+        public const string Usp_Category_List = "Exec dbo.USP_Category_List";
         public const string USP_Category_Insert = "dbo.USP_Category_Insert @CategoryInfo";
         public const string USP_Category_Edit = "dbo.USP_Category_Edit @CategoryInfo";
         public const string USP_Category_Delete = "dbo.USP_Category_Delete @CategoryInfo";
