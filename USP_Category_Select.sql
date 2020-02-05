@@ -4,6 +4,7 @@ use OnlineShopping
 go
 create PROCEDURE dbo.USP_Category_Select
    @SelectCategory as dbo.UDT_Category_Select readonly
+   --@OutputResult  varchar(50) output
 AS
 begin tran 
 begin try
@@ -15,7 +16,7 @@ begin try
 	from dbo.Category c where (c.CategoryName Like '%' + @CategoryName + '%'  ) and
 	                          (c.Descriptions Like '%' + @Descriptions + '%') 
 
-	print'Successful'
+	--set @OutputResult ='Successful'
 commit tran 
 end try
 begin catch 

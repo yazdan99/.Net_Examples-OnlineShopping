@@ -46,6 +46,19 @@ namespace OnlineShopping.View
         public byte[] Img { get; set; }
         #endregion
 
+        #region [- Init_Database_Exception() -]
+        public int Init_Database_Exception()
+        {
+            string DatabaseExceptionMessage = Model.Helper.ModelHelper.DatabaseExceptionHandeler();
+            if (DatabaseExceptionMessage != null)
+            {
+                MessageBox.Show(DatabaseExceptionMessage);
+                return 0;
+            }
+            return 1;
+        }
+        #endregion
+
         #region [- ReadImageToByte () -]
         public byte[] ReadImageToByte()
         {
@@ -119,9 +132,12 @@ namespace OnlineShopping.View
                 Ref_Product_Edit.Descriptions = txtDescriptions.Text;
                 Ref_Products_Edit.Add(Ref_Product_Edit);
                 Ref_ProductViewModel.Edit(Ref_Products_Edit);
-                MessageBox.Show("Edit is Done");
-                OnlineShopping.View.Helper.ViewHelper.CategoryIdLookup = null;
-                this.Close();
+                if (Init_Database_Exception() != 0)
+                {
+                    MessageBox.Show("Edit is Done");
+                    OnlineShopping.View.Helper.ViewHelper.CategoryIdLookup = null;
+                    this.Close();
+                }                  
             }
             #endregion
         }

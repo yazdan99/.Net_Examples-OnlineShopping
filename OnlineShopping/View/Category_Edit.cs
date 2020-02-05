@@ -30,7 +30,20 @@ namespace OnlineShopping.View
         public Model.Helper.SPHelper.Category.SpHelper_Category_Edit Ref_Category_Edit { get; set; }
         public List<Model.Helper.SPHelper.Category.SpHelper_Category_Edit> Ref_Categories_Edit { get; set; }
         #endregion
-            
+
+        #region [- Init_Database_Exception() -]
+        public int Init_Database_Exception()
+        {
+            string DatabaseExceptionMessage = Model.Helper.ModelHelper.DatabaseExceptionHandeler();
+            if (DatabaseExceptionMessage != null)
+            {
+                MessageBox.Show(DatabaseExceptionMessage);
+                return 0;
+            }
+            return 1;
+        }
+        #endregion
+
         #region [- btnSave_Click -]
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -53,8 +66,11 @@ namespace OnlineShopping.View
                 Ref_Category_Edit.Descriptions = txtDescriptions.Text;
                 Ref_Categories_Edit.Add(Ref_Category_Edit);
                 Ref_CategoryViewModel.Edit(Ref_Categories_Edit);
-                MessageBox.Show("Edit is Done");
-                this.Close();
+                if(Init_Database_Exception() != 0)
+                {
+                    MessageBox.Show("Edit is Done");
+                    this.Close();
+                }  
             }
         }
         #endregion

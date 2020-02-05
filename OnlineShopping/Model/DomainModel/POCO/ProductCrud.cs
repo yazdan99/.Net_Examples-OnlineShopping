@@ -26,10 +26,11 @@ namespace OnlineShopping.Model.DomainModel.POCO
                     list_Product = context.Database.SqlQuery<Helper.SPHelper.Product.SpHelper_Product_Select>
                         (Model.Helper.SPHelper.Product.SpHelper_Product.Usp_Product_List).ToList();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
                 }
                 finally
                 {
@@ -60,10 +61,11 @@ namespace OnlineShopping.Model.DomainModel.POCO
                      Model.Helper.SPHelper.Product.SpHelper_Product.SetSelectParameters(listProductSelect)).ToList();
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
                 }
                 finally
                 {
@@ -88,10 +90,11 @@ namespace OnlineShopping.Model.DomainModel.POCO
                         Model.Helper.SPHelper.Product.SpHelper_Product.USP_Product_Insert,
                   Model.Helper.SPHelper.Product.SpHelper_Product.SetInsertParameters(listProductInsert));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
                 }
                 finally
                 {
@@ -115,10 +118,11 @@ namespace OnlineShopping.Model.DomainModel.POCO
                         Model.Helper.SPHelper.Product.SpHelper_Product.USP_Product_Edit,
                   Model.Helper.SPHelper.Product.SpHelper_Product.SetEditParameters(listProductEdit));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
                 }
                 finally
                 {
@@ -142,10 +146,11 @@ namespace OnlineShopping.Model.DomainModel.POCO
                         Model.Helper.SPHelper.Product.SpHelper_Product.USP_Product_Delete,
                   Model.Helper.SPHelper.Product.SpHelper_Product.SetDeleteParameters(listProductDelete));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
                 }
                 finally
                 {

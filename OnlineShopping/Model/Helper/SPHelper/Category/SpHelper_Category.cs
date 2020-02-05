@@ -11,17 +11,17 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
     {
 
         #region [- Const -]
-        public const string USP_Category_Select = "dbo.USP_Category_Select @CategoryInfo";
+        public const string USP_Category_Select = "dbo.USP_Category_Select @CategoryInfo"; //, @OutputResult OUTPUT";
         public const string Usp_Category_List = "Exec dbo.USP_Category_List";
         public const string USP_Category_Insert = "dbo.USP_Category_Insert @CategoryInfo";
         public const string USP_Category_Edit = "dbo.USP_Category_Edit @CategoryInfo";
-        public const string USP_Category_Delete = "dbo.USP_Category_Delete @CategoryInfo";
+        public const string USP_Category_Delete = "dbo.USP_Category_Delete @CategoryInfo , @DbExceptionResult";
         #endregion
 
         #region [- SetSelectParameters(List<SpHelper_Category_Select> listCategorySelect) -]
         public static object[] SetSelectParameters(List<SpHelper_Category_Select> listCategorySelect)
         {
-            #region [- SqlParameter -]
+            #region [- SqlParameters -]
             SqlParameter categoryListParameter = new SqlParameter()
             {
                 ParameterName = "@CategoryInfo",
@@ -29,12 +29,21 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
                 TypeName = "dbo.UDT_Category_Select",
                 Value = listCategorySelect.ToDataTable()
             };
+            SqlParameter outputParameter = new SqlParameter()
+            {
+                ParameterName = "@OutputResult",
+                SqlDbType = System.Data.SqlDbType.NVarChar,
+                Size=-1,
+                Direction= System.Data.ParameterDirection.Output,
+                Value = DBNull.Value
+            };
             #endregion
 
             #region [- parameters  -]
             object[] parameters =
                {
-                categoryListParameter
+                categoryListParameter,
+                outputParameter
             };
             #endregion
 
@@ -101,19 +110,27 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
                 TypeName = "dbo.UDT_Category_Delete",
                 Value = listCategoryDelete.ToDataTable(),
             };
+            SqlParameter outputParameter = new SqlParameter()
+            {
+                ParameterName = "@DbExceptionResult",
+                SqlDbType = System.Data.SqlDbType.NVarChar,
+                Size = -1,
+                Direction = System.Data.ParameterDirection.Output,
+                Value = DBNull.Value
+            };
             #endregion
 
             #region [- parameters  -]
             object[] parameters =
-               {
-                categoryListParameter
+            {
+                categoryListParameter,
+                outputParameter
             };
             #endregion
 
             return parameters;
         }
         #endregion
-
     }
 
 }

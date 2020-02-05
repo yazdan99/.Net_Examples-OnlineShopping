@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+//using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,10 +27,11 @@ namespace OnlineShopping.Model.DomainModel.POCO
                     list_Category = context.Database.SqlQuery<Helper.SPHelper.Category.SpHelper_Category_Select>
                         (Model.Helper.SPHelper.Category.SpHelper_Category.Usp_Category_List).ToList();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
                 }
                 finally
                 {
@@ -60,10 +62,12 @@ namespace OnlineShopping.Model.DomainModel.POCO
                      Model.Helper.SPHelper.Category.SpHelper_Category.SetSelectParameters(listCategorySelect)).ToList();
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
+
                 }
                 finally
                 {
@@ -72,6 +76,7 @@ namespace OnlineShopping.Model.DomainModel.POCO
                         context.Dispose();
                     }
                 }
+                
                 return list_Category;
             }
         }
@@ -88,10 +93,11 @@ namespace OnlineShopping.Model.DomainModel.POCO
                         Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Insert,
                   Model.Helper.SPHelper.Category.SpHelper_Category.SetInsertParameters(listCategoryInsert));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
                 }
                 finally
                 {
@@ -115,10 +121,11 @@ namespace OnlineShopping.Model.DomainModel.POCO
                         Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Edit,
                   Model.Helper.SPHelper.Category.SpHelper_Category.SetEditParameters(listCategoryEdit));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
                 }
                 finally
                 {
@@ -138,14 +145,19 @@ namespace OnlineShopping.Model.DomainModel.POCO
             {
                 try
                 {
-                    context.Database.ExecuteSqlCommand(
+                  context.Database.ExecuteSqlCommand(
                         Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Delete,
-                  Model.Helper.SPHelper.Category.SpHelper_Category.SetDeleteParameters(listCategoryDelete));
+                  Model.Helper.SPHelper.Category.SpHelper_Category.SetDeleteParameters(listCategoryDelete));                    
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    //throw;
+                    Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
+                    //string sss = DbCommand.Parameters["@OutputResult"].Value.ToString();
+                    //System.Diagnostics.Debug.Print("  Message: {0}", ex.Message);                 
+                    //string retunvalue = Parameters["@OutputResult"].Value.ToString();
+                    
                 }
                 finally
                 {

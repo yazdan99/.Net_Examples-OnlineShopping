@@ -36,6 +36,19 @@ namespace OnlineShopping.View
         public List<Model.Helper.SPHelper.Category.SpHelper_Category_Select> Ref_Categories_Select { get; set; }
         #endregion
 
+        #region [- Init_Database_Exception() -]
+        public int Init_Database_Exception()
+        {
+            string DatabaseExceptionMessage = Model.Helper.ModelHelper.DatabaseExceptionHandeler();
+            if (DatabaseExceptionMessage != null)
+            {
+                MessageBox.Show(DatabaseExceptionMessage);
+                return 0;
+            }
+            return 1;
+        }
+        #endregion
+
         #region [- Init_Category_Crud() -]
         public void Init_Category_Crud()
         {
@@ -73,12 +86,16 @@ namespace OnlineShopping.View
                 Ref_Category_Insert.Descriptions = txtDescriptions.Text;
                 Ref_Categories_Insert.Add(Ref_Category_Insert);
                 Ref_CategoryViewModel.Save(Ref_Categories_Insert);
-                MessageBox.Show("Save is Done");
-                txtCategoryName.Text = "";
-                txtDescriptions.Text="";
-                txtCategoryName.Focus();
-                dgvCategory.DataSource = Ref_CategoryViewModel.FillGrid();
-                
+                if (Init_Database_Exception() != 0)               
+                {
+                    MessageBox.Show("Save is Done");
+                    txtCategoryName.Text = "";
+                    txtDescriptions.Text = "";
+                    txtCategoryName.Focus();
+                    dgvCategory.DataSource = Ref_CategoryViewModel.FillGrid();
+                    Init_Database_Exception();
+                }
+
             }
         }
         #endregion
@@ -106,7 +123,6 @@ namespace OnlineShopping.View
         #region [- btnSearch_Click -]
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //dgvCategory.DataSource = Ref_CategoryViewModel.FillGrid();
             #region [- Trim -]
             txtCategoryName.Text = txtCategoryName.Text.Trim();
             txtDescriptions.Text = txtDescriptions.Text.Trim();
@@ -119,9 +135,13 @@ namespace OnlineShopping.View
 
             Ref_Categories_Select.Add(Ref_Category_Select);
             dgvCategory.DataSource = Ref_CategoryViewModel.Select(Ref_Categories_Select);
-  
-            if (dgvCategory.RowCount == 0)
-                MessageBox.Show("The Category List is Empty.");
+            if (Init_Database_Exception() != 0)
+            {
+                if (dgvCategory.RowCount == 0)
+                    MessageBox.Show("The Category List is Empty.");
+                txtCategoryName.Focus();
+            }
+            else
             txtCategoryName.Focus();
         }
         #endregion
@@ -144,33 +164,26 @@ namespace OnlineShopping.View
                 else
                 {
                     Int32 selectedRowCount = dgvCategory.SelectedRows.Count;
-                    if (selectedRowCount > 0)
+                    Ref_Categories_Delete.Clear();
+                    for (int i = 0; i < selectedRowCount; i++)
                     {
-                        Ref_Categories_Delete.Clear();
-                        for (int i = 0; i < selectedRowCount; i++)
-                        {
-                            Ref_Category_Delete = new Model.Helper.SPHelper.Category.SpHelper_Category_Delete();
-                            Ref_Category_Delete.CategoryId = (int)dgvCategory.SelectedRows[i].Cells[0].Value;
-                            Ref_Categories_Delete.Add(Ref_Category_Delete);
-                        }
-                        int CategoryRowCountBeforDelete = dgvCategory.RowCount;
-                        Ref_CategoryViewModel.Delete(Ref_Categories_Delete);
+                       Ref_Category_Delete = new Model.Helper.SPHelper.Category.SpHelper_Category_Delete();
+                       Ref_Category_Delete.CategoryId = (int)dgvCategory.SelectedRows[i].Cells[0].Value;
+                       Ref_Categories_Delete.Add(Ref_Category_Delete);
+                    }
+
+                    Ref_CategoryViewModel.Delete(Ref_Categories_Delete);
+                    if (Init_Database_Exception() != 0)
+                    {
+                        MessageBox.Show("Delete is Done");
                         dgvCategory.DataSource = Ref_CategoryViewModel.FillGrid();
-                        int CategoryRowCountAfterDelete = dgvCategory.RowCount;
-                        if (CategoryRowCountBeforDelete == CategoryRowCountAfterDelete)
-                        {
-                            MessageBox.Show("A Product Already Has Defined With This Category Id.");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Delete is Done");
-                        }
-                      
-                        dgvCategory.DataSource = Ref_CategoryViewModel.FillGrid();
+                        Init_Database_Exception();
                         if (dgvCategory.RowCount == 0)
                             MessageBox.Show("The Category List is Empty.");
                         txtCategoryName.Focus();
                     }
+                    else
+                        txtCategoryName.Focus();
                 }
             }
             
@@ -208,6 +221,12 @@ namespace OnlineShopping.View
             if (dgvCategory.RowCount != 0)
             {
                 dgvCategory.DataSource = Ref_CategoryViewModel.FillGrid();
+                //if (Model.Helper.ModelHelper.DatabaseExceptionHandeler() != null)
+                //{
+                //    MessageBox.Show(Model.Helper.ModelHelper.DatabaseExceptionHandeler());
+                //    Model.Helper.ModelHelper.DatabaseExceptionCleaner();
+                //}
+
             }
         }
         #endregion

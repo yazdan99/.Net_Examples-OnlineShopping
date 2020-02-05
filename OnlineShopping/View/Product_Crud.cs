@@ -38,6 +38,19 @@ namespace OnlineShopping.View
         public byte[] Img { get; set; }
         #endregion
 
+        #region [- Init_Database_Exception() -]
+        public int Init_Database_Exception()
+        {
+            string DatabaseExceptionMessage = Model.Helper.ModelHelper.DatabaseExceptionHandeler();
+            if (DatabaseExceptionMessage != null)
+            {
+                MessageBox.Show(DatabaseExceptionMessage);
+                return 0;
+            }
+            return 1;
+        }
+        #endregion
+
         #region [- ReadImageToByte () -]
         public byte[] ReadImageToByte ()
         {
@@ -58,7 +71,6 @@ namespace OnlineShopping.View
         #region [- btnSearch_Click -]
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //dgvProduct.DataSource = Ref_ProductViewModel.FillGrid();
             #region [- Trim -]
             txtProductCode.Text = txtProductCode.Text.Trim();
             txtProductName.Text = txtProductName.Text.Trim();
@@ -80,9 +92,12 @@ namespace OnlineShopping.View
 
             Ref_Products_Select.Add(Ref_Product_Select);
             dgvProduct.DataSource = Ref_ProductViewModel.Select(Ref_Products_Select);
-
-            if (dgvProduct.RowCount == 0)
-                MessageBox.Show("The Product List is Empty.");
+            if (Init_Database_Exception() != 0)
+            {
+                if (dgvProduct.RowCount == 0)
+                    MessageBox.Show("The Product List is Empty.");
+                txtProductCode.Focus();
+            }
             txtProductCode.Focus();
         }
         #endregion
@@ -141,22 +156,27 @@ namespace OnlineShopping.View
                 Ref_Product_Insert.Descriptions = txtDescriptions.Text;
                 Ref_Products_Insert.Add(Ref_Product_Insert);
                 Ref_ProductViewModel.Save(Ref_Products_Insert);
-                MessageBox.Show("Save is Done");
+                if (Init_Database_Exception() != 0)
+                {
+                    MessageBox.Show("Save is Done");
 
-                #region [- Clear Product Form -]
-                txtProductCode.Text = "";
-                txtProductName.Text = "";
-                txtCategoryId.Text = "";
-                txtQuantity.Text = "";
-                txtUnitPrice.Text = "";
-                txtDiscount.Text = "";
-                txtDescriptions.Text = "";
-                picboImage.Image = null;
-                Img = null;
-                txtProductCode.Focus();
-                #endregion
-                OnlineShopping.View.Helper.ViewHelper.CategoryIdLookup = null;
-                dgvProduct.DataSource = Ref_ProductViewModel.FillGrid();
+                    #region [- Clear Product Form -]
+                    txtProductCode.Text = "";
+                    txtProductName.Text = "";
+                    txtCategoryId.Text = "";
+                    txtQuantity.Text = "";
+                    txtUnitPrice.Text = "";
+                    txtDiscount.Text = "";
+                    txtDescriptions.Text = "";
+                    picboImage.Image = null;
+                    Img = null;
+                    txtProductCode.Focus();
+                    #endregion
+
+                    OnlineShopping.View.Helper.ViewHelper.CategoryIdLookup = null;
+                    dgvProduct.DataSource = Ref_ProductViewModel.FillGrid();
+                    Init_Database_Exception();
+                }
             }
             #endregion
 
@@ -198,11 +218,15 @@ namespace OnlineShopping.View
                             Ref_Products_Delete.Add(Ref_Product_Delete);
                         }
                         Ref_ProductViewModel.Delete(Ref_Products_Delete);
-                        MessageBox.Show("Delete is Done");
-                        dgvProduct.DataSource = Ref_ProductViewModel.FillGrid();
-                        if (dgvProduct.RowCount == 0)
-                            MessageBox.Show("The Product List is Empty.");
-                        txtProductCode.Focus();
+                        if (Init_Database_Exception() != 0)
+                        {
+                            MessageBox.Show("Delete is Done");
+                            dgvProduct.DataSource = Ref_ProductViewModel.FillGrid();
+                            Init_Database_Exception();
+                            if (dgvProduct.RowCount == 0)
+                                MessageBox.Show("The Product List is Empty.");
+                            txtProductCode.Focus();
+                        }
                     }
                 }
             }

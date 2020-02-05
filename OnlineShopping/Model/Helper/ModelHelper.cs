@@ -10,6 +10,10 @@ namespace OnlineShopping.Model.Helper
 {
     public static class ModelHelper
     {
+        #region [- Prop -]
+        public static string DatabaseException { get; set; }
+        #endregion
+
         #region [- ToDataTable<T>(List<T> list_T) -]
         public static DataTable ToDataTable<T>(this List<T> list_T) where T : class
         {
@@ -36,5 +40,27 @@ namespace OnlineShopping.Model.Helper
 
         }
         #endregion
+
+        #region [- DatabaseExceptionHandeler() -]
+        public static string DatabaseExceptionHandeler()
+        {
+            if (DatabaseException != null)
+            {
+                string DatabaseExceptionMessage;
+                DatabaseExceptionMessage= "Database Exception: " + '\n' + '\n' + DatabaseException;
+                DatabaseException = null;
+                return DatabaseExceptionMessage;
+            }
+            return null;
+        }
+        #endregion
+
+        #region [- DatabaseExceptionHandeler(string databaseException) -]
+        public static void DatabaseExceptionHandeler(string databaseException)
+        {
+            DatabaseException = databaseException;
+        }
+        #endregion
+
     }
 }
