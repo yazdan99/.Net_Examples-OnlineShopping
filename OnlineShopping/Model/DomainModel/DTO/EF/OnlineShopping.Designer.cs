@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Aghajanian\Projects\SQL_Projects\SQL_Final_Project\aaa\OnlineShopping\OnlineShopping\OnlineShopping\Model\DomainModel\DTO\EF\OnlineShopping.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Aghajanian\Projects\SQL\SQL_Final_Project\OnlineShopping\OnlineShopping\OnlineShopping\Model\DomainModel\DTO\EF\OnlineShopping.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

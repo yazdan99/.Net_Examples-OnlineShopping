@@ -82,6 +82,12 @@
     <Compile Include="Model\DomainModel\DTO\EF\Product.cs">
       <DependentUpon>OnlineShopping.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DomainModel\DTO\EF\USP_Category_List_Result.cs">
+      <DependentUpon>OnlineShopping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DomainModel\DTO\EF\USP_Product_List_Result.cs">
+      <DependentUpon>OnlineShopping.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\DomainModel\POCO\CategoryCrud.cs" />
     <Compile Include="Model\DomainModel\POCO\ProductCrud.cs" />
     <Compile Include="Model\Helper\ModelHelper.cs" />
@@ -179,19 +185,19 @@
     <Folder Include="Model\DomainModel\DTO\MetaData\" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\DomainModel\DTO\EF\OnlineShopping.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OnlineShopping.Context.cs</LastGenOutput>
       <DependentUpon>OnlineShopping.edmx</DependentUpon>
+      <LastGenOutput>OnlineShopping.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model\DomainModel\DTO\EF\OnlineShopping.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OnlineShopping.edmx</DependentUpon>
       <LastGenOutput>OnlineShopping.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

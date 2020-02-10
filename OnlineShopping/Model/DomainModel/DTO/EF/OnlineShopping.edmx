@@ -57,14 +57,18 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="USP_Category_CreateTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="USP_Category_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_Category_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DbExceptionResult" Type="varchar" Mode="InOut" />
+        </Function>
         <Function Name="USP_Category_Edit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_Category_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_Category_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_Category_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_Product_CreateTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_Product_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_Product_Edit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_Product_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="USP_Product_List" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="USP_Product_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="OnlineShoppingModelStoreContainer">
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -142,16 +146,36 @@
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <FunctionImport Name="USP_Category_CreateTable" />
-          <FunctionImport Name="USP_Category_Delete" />
+          <FunctionImport Name="USP_Category_Delete">
+            <Parameter Name="DbExceptionResult" Mode="InOut" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="USP_Category_Edit" />
           <FunctionImport Name="USP_Category_Insert" />
+          <FunctionImport Name="USP_Category_List" ReturnType="Collection(OnlineShoppingModel.USP_Category_List_Result)" />
           <FunctionImport Name="USP_Category_Select" />
           <FunctionImport Name="USP_Product_CreateTable" />
           <FunctionImport Name="USP_Product_Delete" />
           <FunctionImport Name="USP_Product_Edit" />
           <FunctionImport Name="USP_Product_Insert" />
+          <FunctionImport Name="USP_Product_List" ReturnType="Collection(OnlineShoppingModel.USP_Product_List_Result)" />
           <FunctionImport Name="USP_Product_Select" />
         </EntityContainer>
+        <ComplexType Name="USP_Category_List_Result">
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="String" Name="CategoryName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Descriptions" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="USP_Product_List_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="ProductCode" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Decimal" Name="UnitPrice" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="Discount" Nullable="true" Precision="19" />
+          <Property Type="Binary" Name="Picture" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Descriptions" Nullable="true" MaxLength="100" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -204,11 +228,35 @@
           <FunctionImportMapping FunctionImportName="USP_Category_Delete" FunctionName="OnlineShoppingModel.Store.USP_Category_Delete" />
           <FunctionImportMapping FunctionImportName="USP_Category_Edit" FunctionName="OnlineShoppingModel.Store.USP_Category_Edit" />
           <FunctionImportMapping FunctionImportName="USP_Category_Insert" FunctionName="OnlineShoppingModel.Store.USP_Category_Insert" />
+          <FunctionImportMapping FunctionImportName="USP_Category_List" FunctionName="OnlineShoppingModel.Store.USP_Category_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineShoppingModel.USP_Category_List_Result">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_Category_Select" FunctionName="OnlineShoppingModel.Store.USP_Category_Select" />
           <FunctionImportMapping FunctionImportName="USP_Product_CreateTable" FunctionName="OnlineShoppingModel.Store.USP_Product_CreateTable" />
           <FunctionImportMapping FunctionImportName="USP_Product_Delete" FunctionName="OnlineShoppingModel.Store.USP_Product_Delete" />
           <FunctionImportMapping FunctionImportName="USP_Product_Edit" FunctionName="OnlineShoppingModel.Store.USP_Product_Edit" />
           <FunctionImportMapping FunctionImportName="USP_Product_Insert" FunctionName="OnlineShoppingModel.Store.USP_Product_Insert" />
+          <FunctionImportMapping FunctionImportName="USP_Product_List" FunctionName="OnlineShoppingModel.Store.USP_Product_List">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OnlineShoppingModel.USP_Product_List_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="USP_Product_Select" FunctionName="OnlineShoppingModel.Store.USP_Product_Select" />
         </EntityContainerMapping>
       </Mapping>

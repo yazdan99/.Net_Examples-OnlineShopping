@@ -36,9 +36,9 @@ namespace OnlineShopping.Model.DomainModel.DTO.EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_Category_CreateTable");
         }
     
-        public virtual int USP_Category_Delete()
+        public virtual int USP_Category_Delete(ObjectParameter dbExceptionResult)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_Category_Delete");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_Category_Delete", dbExceptionResult);
         }
     
         public virtual int USP_Category_Edit()
@@ -49,6 +49,11 @@ namespace OnlineShopping.Model.DomainModel.DTO.EF
         public virtual int USP_Category_Insert()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_Category_Insert");
+        }
+    
+        public virtual ObjectResult<USP_Category_List_Result> USP_Category_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Category_List_Result>("USP_Category_List");
         }
     
         public virtual int USP_Category_Select()
@@ -74,6 +79,11 @@ namespace OnlineShopping.Model.DomainModel.DTO.EF
         public virtual int USP_Product_Insert()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("USP_Product_Insert");
+        }
+    
+        public virtual ObjectResult<USP_Product_List_Result> USP_Product_List()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<USP_Product_List_Result>("USP_Product_List");
         }
     
         public virtual int USP_Product_Select()
