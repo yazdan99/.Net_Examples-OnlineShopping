@@ -11,15 +11,15 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
     {
 
         #region [- Const -]
-        public const string USP_Category_Select = "dbo.USP_Category_Select @CategoryInfo"; //, @OutputResult OUTPUT";
+        public const string USP_Category_Select = "dbo.USP_Category_Select @CategoryInfo , @OutputResult OutPut";
         public const string Usp_Category_List = "Exec dbo.USP_Category_List";
-        public const string USP_Category_Insert = "dbo.USP_Category_Insert @CategoryInfo";
-        public const string USP_Category_Edit = "dbo.USP_Category_Edit @CategoryInfo";
-        public const string USP_Category_Delete = "dbo.USP_Category_Delete @CategoryInfo , @DbExceptionResult";
+        public const string USP_Category_Insert = "dbo.USP_Category_Insert @CategoryInfo , @OutputResult OutPut";
+        public const string USP_Category_Edit = "dbo.USP_Category_Edit @CategoryInfo , @OutputResult OutPut";
+        public const string USP_Category_Delete = "dbo.USP_Category_Delete @CategoryInfo , @OutputResult OutPut";
         #endregion
 
         #region [- SetSelectParameters(List<SpHelper_Category_Select> listCategorySelect) -]
-        public static object[] SetSelectParameters(List<SpHelper_Category_Select> listCategorySelect)
+        public static SqlParameter[] SetSelectParameters(List<SpHelper_Category_Select> listCategorySelect)
         {
             #region [- SqlParameters -]
             SqlParameter categoryListParameter = new SqlParameter()
@@ -40,7 +40,7 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
             #endregion
 
             #region [- parameters  -]
-            object[] parameters =
+            SqlParameter[] parameters =
                {
                 categoryListParameter,
                 outputParameter
@@ -52,7 +52,7 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
         #endregion
 
         #region [- SetInsertParameters(List<SpHelper_Category_Insert> listCategoryInsert) -]
-        public static object[] SetInsertParameters(List<SpHelper_Category_Insert> listCategoryInsert)
+        public static SqlParameter[] SetInsertParameters(List<SpHelper_Category_Insert> listCategoryInsert)
         {
             #region [- SqlParameter -]
             SqlParameter categoryListParameter = new SqlParameter()
@@ -62,12 +62,21 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
                 TypeName = "dbo.UDT_Category_Insert",
                 Value = listCategoryInsert.ToDataTable()
             };
+            SqlParameter outputParameter = new SqlParameter()
+            {
+                ParameterName = "@OutputResult",
+                SqlDbType = System.Data.SqlDbType.NVarChar,
+                Size = -1,
+                Direction = System.Data.ParameterDirection.Output,
+                Value = DBNull.Value
+            };
             #endregion
 
             #region [- parameters  -]
-            object[] parameters =
+            SqlParameter[] parameters =
                {
-                categoryListParameter
+                categoryListParameter,
+                outputParameter
             };
             #endregion
 
@@ -76,7 +85,7 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
         #endregion
 
         #region [- SetEditParameters(List<SpHelper_Category_Edit> listCategoryEdit) -]
-        public static object[] SetEditParameters(List<SpHelper_Category_Edit> listCategoryEdit)
+        public static SqlParameter[] SetEditParameters(List<SpHelper_Category_Edit> listCategoryEdit)
         {
             #region [- SqlParameter -]
             SqlParameter categoryListParameter = new SqlParameter()
@@ -86,12 +95,21 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
                 TypeName = "dbo.UDT_Category_Edit",
                 Value = listCategoryEdit.ToDataTable()
             };
+            SqlParameter outputParameter = new SqlParameter()
+            {
+                ParameterName = "@OutputResult",
+                SqlDbType = System.Data.SqlDbType.NVarChar,
+                Size = -1,
+                Direction = System.Data.ParameterDirection.Output,
+                Value = DBNull.Value
+            };
             #endregion
 
             #region [- parameters  -]
-            object[] parameters =
+            SqlParameter[] parameters =
                {
-                categoryListParameter
+                categoryListParameter,
+                outputParameter
             };
             #endregion
 
@@ -100,7 +118,7 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
         #endregion
 
         #region [- SetDeleteParameters(List<SpHelper_Category_Delete> listCategoryDelete) -]
-        public static object[] SetDeleteParameters(List<SpHelper_Category_Delete> listCategoryDelete)
+        public static SqlParameter[] SetDeleteParameters(List<SpHelper_Category_Delete> listCategoryDelete)
         {
             #region [- SqlParameter -]
             SqlParameter categoryListParameter = new SqlParameter()
@@ -112,7 +130,7 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
             };
             SqlParameter outputParameter = new SqlParameter()
             {
-                ParameterName = "@DbExceptionResult",
+                ParameterName = "@OutputResult",
                 SqlDbType = System.Data.SqlDbType.NVarChar,
                 Size = -1,
                 Direction = System.Data.ParameterDirection.Output,
@@ -121,7 +139,7 @@ namespace OnlineShopping.Model.Helper.SPHelper.Category
             #endregion
 
             #region [- parameters  -]
-            object[] parameters =
+            SqlParameter[] parameters =
             {
                 categoryListParameter,
                 outputParameter

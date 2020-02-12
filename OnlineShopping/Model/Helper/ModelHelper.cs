@@ -11,7 +11,8 @@ namespace OnlineShopping.Model.Helper
     public static class ModelHelper
     {
         #region [- Prop -]
-        public static string DatabaseException { get; set; }
+        public static string DbException { get; set; }
+        public static string SpMessage { get; set; }
         #endregion
 
         #region [- ToDataTable<T>(List<T> list_T) -]
@@ -44,11 +45,13 @@ namespace OnlineShopping.Model.Helper
         #region [- DatabaseExceptionHandeler() -]
         public static string DatabaseExceptionHandeler()
         {
-            if (DatabaseException != null)
+            if (DbException != null)
             {
                 string DatabaseExceptionMessage;
-                DatabaseExceptionMessage= "Database Exception: " + '\n' + '\n' + DatabaseException;
-                DatabaseException = null;
+                DatabaseExceptionMessage = "DataBase SP Message: " + '\n' + SpMessage +
+                    '\n' + '\n' + '\n' + "Database Exception: " + '\n' + DbException;
+                SpMessage = null;
+                DbException = null;
                 return DatabaseExceptionMessage;
             }
             return null;
@@ -56,9 +59,30 @@ namespace OnlineShopping.Model.Helper
         #endregion
 
         #region [- DatabaseExceptionHandeler(string databaseException) -]
-        public static void DatabaseExceptionHandeler(string databaseException)
+        public static void DatabaseExceptionHandeler(string dbException)
         {
-            DatabaseException = databaseException;
+            DbException = dbException;
+        }
+        #endregion
+
+        #region [- DatabaseSpMessage() -]
+        public static string DatabaseSpMessage()
+        {
+            if (SpMessage != null)
+            {
+                string DbSpMessage;
+                DbSpMessage = "DataBase SP Message: " + '\n' + SpMessage;
+                SpMessage = null;
+                return DbSpMessage;
+            }
+            return null;
+        }
+        #endregion
+
+        #region [- DatabaseSpMessage(string spMessage) -]
+        public static void DatabaseSpMessage(string spMessage)
+        {
+            SpMessage = spMessage;
         }
         #endregion
 

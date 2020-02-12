@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-//using System.Data.SqlClient;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +14,12 @@ namespace OnlineShopping.Model.DomainModel.POCO
         {
 
         }
+        #endregion
+
+        #region [- prop -]
+        public string SpMessage { get; set; }
+        public SqlParameter[] Parameters { get; set; }
+
         #endregion
 
         #region [- List<Helper.SPHelper.Category.SpHelper_Category_Select> SelectBySp() -]
@@ -57,9 +63,12 @@ namespace OnlineShopping.Model.DomainModel.POCO
                 List<Helper.SPHelper.Category.SpHelper_Category_Select> list_Category = new List<Helper.SPHelper.Category.SpHelper_Category_Select>();
                 try
                 {
+                    Parameters = Model.Helper.SPHelper.Category.SpHelper_Category.SetSelectParameters(listCategorySelect);
                     list_Category = context.Database.SqlQuery<Helper.SPHelper.Category.SpHelper_Category_Select>
                     (Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Select,
-                     Model.Helper.SPHelper.Category.SpHelper_Category.SetSelectParameters(listCategorySelect)).ToList();
+                     Parameters).ToList();
+                    SpMessage = Parameters[1].Value.ToString();
+                    Model.Helper.ModelHelper.DatabaseSpMessage(SpMessage);
 
                 }
                 catch (Exception ex)
@@ -67,6 +76,8 @@ namespace OnlineShopping.Model.DomainModel.POCO
 
                     //throw;
                     Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
+                    SpMessage = Parameters[1].Value.ToString();
+                    Model.Helper.ModelHelper.DatabaseSpMessage(SpMessage); ;
 
                 }
                 finally
@@ -89,15 +100,19 @@ namespace OnlineShopping.Model.DomainModel.POCO
             {
                 try
                 {
-                    context.Database.ExecuteSqlCommand(
-                        Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Insert,
-                  Model.Helper.SPHelper.Category.SpHelper_Category.SetInsertParameters(listCategoryInsert));
+                    Parameters = Model.Helper.SPHelper.Category.SpHelper_Category.SetInsertParameters(listCategoryInsert);
+                    context.Database.ExecuteSqlCommand(Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Insert,
+                    Parameters);
+                    SpMessage = Parameters[1].Value.ToString();
+                    Model.Helper.ModelHelper.DatabaseSpMessage(SpMessage);
                 }
                 catch (Exception ex)
                 {
 
                     //throw;
                     Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
+                    SpMessage = Parameters[1].Value.ToString();
+                    Model.Helper.ModelHelper.DatabaseSpMessage(SpMessage); ;
                 }
                 finally
                 {
@@ -117,15 +132,19 @@ namespace OnlineShopping.Model.DomainModel.POCO
             {
                 try
                 {
-                    context.Database.ExecuteSqlCommand(
-                        Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Edit,
-                  Model.Helper.SPHelper.Category.SpHelper_Category.SetEditParameters(listCategoryEdit));
+                    Parameters = Model.Helper.SPHelper.Category.SpHelper_Category.SetEditParameters(listCategoryEdit);
+                    context.Database.ExecuteSqlCommand(Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Edit,
+                    Parameters);
+                    SpMessage = Parameters[1].Value.ToString();
+                    Model.Helper.ModelHelper.DatabaseSpMessage(SpMessage);
                 }
                 catch (Exception ex)
                 {
 
                     //throw;
                     Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
+                    SpMessage = Parameters[1].Value.ToString();
+                    Model.Helper.ModelHelper.DatabaseSpMessage(SpMessage); ;
                 }
                 finally
                 {
@@ -145,19 +164,18 @@ namespace OnlineShopping.Model.DomainModel.POCO
             {
                 try
                 {
-                  context.Database.ExecuteSqlCommand(
-                        Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Delete,
-                  Model.Helper.SPHelper.Category.SpHelper_Category.SetDeleteParameters(listCategoryDelete));                    
+                    Parameters = Model.Helper.SPHelper.Category.SpHelper_Category.SetDeleteParameters(listCategoryDelete);
+                    context.Database.ExecuteSqlCommand(Model.Helper.SPHelper.Category.SpHelper_Category.USP_Category_Delete,
+                    Parameters);
+                    SpMessage = Parameters[1].Value.ToString();
+                    Model.Helper.ModelHelper.DatabaseSpMessage(SpMessage);
                 }
                 catch (Exception ex)
                 {
-
                     //throw;
                     Model.Helper.ModelHelper.DatabaseExceptionHandeler(ex.Message);
-                    //string sss = DbCommand.Parameters["@OutputResult"].Value.ToString();
-                    //System.Diagnostics.Debug.Print("  Message: {0}", ex.Message);                 
-                    //string retunvalue = Parameters["@OutputResult"].Value.ToString();
-                    
+                    SpMessage = Parameters[1].Value.ToString();
+                    Model.Helper.ModelHelper.DatabaseSpMessage(SpMessage);
                 }
                 finally
                 {

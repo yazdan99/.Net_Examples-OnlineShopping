@@ -49,6 +49,19 @@ namespace OnlineShopping.View
         }
         #endregion
 
+        #region [- Init_Database_SP_Message() -]
+        public int Init_Database_SP_Message()
+        {
+            string DatabaseSPMessage = Model.Helper.ModelHelper.DatabaseSpMessage();
+            if (DatabaseSPMessage != null)
+            {
+                MessageBox.Show(DatabaseSPMessage);
+                return 0;
+            }
+            return 1;
+        }
+        #endregion
+
         #region [- Init_Category_Crud() -]
         public void Init_Category_Crud()
         {
@@ -88,7 +101,7 @@ namespace OnlineShopping.View
                 Ref_CategoryViewModel.Save(Ref_Categories_Insert);
                 if (Init_Database_Exception() != 0)               
                 {
-                    MessageBox.Show("Save is Done");
+                    Init_Database_SP_Message();
                     txtCategoryName.Text = "";
                     txtDescriptions.Text = "";
                     txtCategoryName.Focus();
@@ -142,7 +155,9 @@ namespace OnlineShopping.View
                 txtCategoryName.Focus();
             }
             else
-            txtCategoryName.Focus();
+            {
+                txtCategoryName.Focus();
+            }      
         }
         #endregion
                
@@ -175,7 +190,7 @@ namespace OnlineShopping.View
                     Ref_CategoryViewModel.Delete(Ref_Categories_Delete);
                     if (Init_Database_Exception() != 0)
                     {
-                        MessageBox.Show("Delete is Done");
+                        Init_Database_SP_Message();
                         dgvCategory.DataSource = Ref_CategoryViewModel.FillGrid();
                         Init_Database_Exception();
                         if (dgvCategory.RowCount == 0)

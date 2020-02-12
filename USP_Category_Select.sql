@@ -1,10 +1,11 @@
-﻿create database onlineshopping
+﻿Create database onlineshopping
 Go
 use OnlineShopping
 go
-create PROCEDURE dbo.USP_Category_Select
-   @SelectCategory as dbo.UDT_Category_Select readonly
-   --@OutputResult  varchar(50) output
+Create PROCEDURE dbo.USP_Category_Select
+   @SelectCategory as dbo.UDT_Category_Select readonly,
+   @OutputResult  varchar(50) output
+
 AS
 begin tran 
 begin try
@@ -14,14 +15,10 @@ begin try
 
 	select c.CategoryId, c.CategoryName , c.Descriptions
 	from dbo.Category c where (c.CategoryName Like '%' + @CategoryName + '%'  ) and
-	                          (c.Descriptions Like '%' + @Descriptions + '%') 
-
-	--set @OutputResult ='Successful'
+	                          (c.Descriptions Like '%' + @Descriptions + '%')
 commit tran 
 end try
 begin catch 
-	print 'Error'
+select @OutputResult =  'Category Search has Error ...'
 rollback tran 
-end catch 
-go
-exec dbo.USP_Category_Select
+end catch

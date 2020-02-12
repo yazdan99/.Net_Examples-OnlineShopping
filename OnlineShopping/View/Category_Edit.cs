@@ -44,6 +44,19 @@ namespace OnlineShopping.View
         }
         #endregion
 
+        #region [- Init_Database_SP_Message() -]
+        public int Init_Database_SP_Message()
+        {
+            string DatabaseSPMessage = Model.Helper.ModelHelper.DatabaseSpMessage();
+            if (DatabaseSPMessage != null)
+            {
+                MessageBox.Show(DatabaseSPMessage);
+                return 0;
+            }
+            return 1;
+        }
+        #endregion
+
         #region [- btnSave_Click -]
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -68,7 +81,7 @@ namespace OnlineShopping.View
                 Ref_CategoryViewModel.Edit(Ref_Categories_Edit);
                 if(Init_Database_Exception() != 0)
                 {
-                    MessageBox.Show("Edit is Done");
+                    Init_Database_SP_Message();
                     this.Close();
                 }  
             }
